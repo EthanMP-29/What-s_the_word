@@ -1,0 +1,138 @@
+<!DOCT<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What's the word</title>
+    <style>
+        /* Basic styles for buttons and interface */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        button {
+            font-size: 18px;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        #question {
+            display: none;
+            margin-top: 20px;
+        }
+        #wordReveal {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>What's the word</h1>
+    <div id="buttons">
+        <!-- Generate 41 numbered buttons -->
+        <script>
+            for (let i = 1; i <= 41; i++) {
+                document.write('<button onclick="askQuestion(' + i + ')">#' + i + '</button>');
+            }
+        </script>
+    </div>
+
+    <!-- Section to ask the question and enter the answer -->
+    <div id="question">
+        <p id="questionText"></p>
+        <input type="text" id="answer" placeholder="Enter your answer">
+        <button onclick="checkAnswer()">Submit</button>
+        <button onclick="goHome()">Home</button>
+    </div>
+
+    <!-- Section to reveal the secret word -->
+    <div id="wordReveal">
+        <p>The word is: <span id="secretWord"></span></p>
+        <button onclick="goHome()">Back to Home</button>
+    </div>
+
+    <script>
+        // Variables to store the secret word and the expected answer
+        let currentButton = 0;
+        const secrets = [
+            {word: "Hello", answer: "Montse"}, // Example for button #1
+            {word: "read", answer: "you"},
+            {word: "message", answer: "this"},
+            {word: "means", answer: "it"},
+            {word: "succeed", answer: "have"},
+            {word: "little", answer: "this"},
+            {word: "riddle", answer: "little"},
+            {word: "part", answer: "little"},
+            {word: "discover", answer: "you"},
+            {word: "rest", answer: "the"},
+            {word: "Darling", answer: "rest"},
+            {word: "describe", answer: "can"},
+            {word: "loved", answer: "ever"},
+            {word: "anyone", answer: "loved"},
+            {word: "heard", answer: "I"},
+            {word: "first", answer: "the"},
+            {word: "future", answer: "our"},
+            {word: "remind", answer: "days"},
+            {word: "want", answer: "don't"},
+            {word: "lose", answer: "to"},
+            {word: "protect", answer: "will"},
+            {word: "precisely", answer: "more"},
+            {word: "marry", answer: "will"},
+            {word: "mate", answer: "soul"},
+            {word: "Wedding", answer: "me"},
+            {word: "designate", answer: "to"},
+            {word: "alliance", answer: "designate"},
+            {word: "trust", answer: "and"},
+            {word: "really", answer: "we"},
+            {word: "married", answer: "get"},
+            {word: "officialy", answer: "to"},
+            {word: "course", answer: "of"},
+            {word: "being", answer: "my"},
+            {word: "consider", answer: "already"},
+            {word: "forever", answer: "and"},
+            {word: "hidden", answer: "was"},
+            {word: "any", answer: "in"},
+            {word: "case", answer: "any"},
+            {word: "signed", answer: "love"},
+            {word: "beloved", answer: "your"},
+            {word: "husband", answer: "beloved"},
+            // Add the other secrets here up to 41
+        ];
+
+        // Function called when a button is clicked
+        function askQuestion(buttonNumber) {
+            currentButton = buttonNumber - 1; // Keep track of the clicked button
+            
+            // Display question based on the clicked button
+            let questionText = buttonNumber === 1 ? "What's your name?" : "What is the word before?";
+            document.getElementById('questionText').innerText = questionText;
+            
+            document.getElementById('buttons').style.display = 'none';
+            document.getElementById('question').style.display = 'block';
+        }
+
+        // Function to check the answer
+        function checkAnswer() {
+            const userAnswer = document.getElementById('answer').value.trim().toLowerCase();
+            const correctAnswer = secrets[currentButton].answer.toLowerCase();
+
+            if (userAnswer === correctAnswer) {
+                document.getElementById('secretWord').innerText = secrets[currentButton].word;
+                document.getElementById('question').style.display = 'none';
+                document.getElementById('wordReveal').style.display = 'block';
+            } else {
+                alert('Incorrect answer. Please try again.');
+            }
+        }
+
+        // Function to return to the home page
+        function goHome() {
+            document.getElementById('wordReveal').style.display = 'none';
+            document.getElementById('question').style.display = 'none';
+            document.getElementById('buttons').style.display = 'block';
+            document.getElementById('answer').value = ''; // Reset the answer field
+        }
+    </script>
+</body>
+</html>
